@@ -147,9 +147,9 @@
           >
           (which required rederiving the closed form KL divergence loss term).
           As shown below, this works suprisingly well: the distributions of each
-          digit were successfully forced into distinct areas of the latent
-          space. Even more surprising is the fact that interpolation between
-          digits is still smooth.
+          digit were successfully forced into distinct, predefined areas of the
+          latent space. Even more surprising is the fact that interpolation
+          between digits is still smooth.
         </p>
       </section>
     </div>
@@ -163,7 +163,7 @@
         <canvas id="canvas3" width="260" height="260"></canvas>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+    <script src="onnx.min.js"></script>
     <script>
       class DigitCanvas {
         constructor(id) {
