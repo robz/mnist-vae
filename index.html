@@ -183,6 +183,18 @@
         <canvas id="canvas4" width="260" height="260"></canvas>
       </div>
     </div>
+    <div style="display: flex; justify-content: center;">
+      <section style="width: 700px; margin-top: 50px;">
+        The classifier decision boundaries on the latent space are interesting to compare with the means of the training data. It appears this model had trouble distiguishing 4s and 9s.
+      </section>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <div>
+        <img
+          src="./latent_space_boundaries.png"
+        />
+      </div>
+    </div>
     <script src="onnx.min.js"></script>
     <script>
       class DigitCanvas {
@@ -290,7 +302,6 @@
             ((offsetX - 175) / 120) * 4.0,
             (-(offsetY - 130) / 97) * 4.0,
           ];
-          console.log(x, y);
           pending = true;
           const data = await predictLWL(vaeMnistLWL, x, y);
           pending = false;
