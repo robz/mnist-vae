@@ -166,11 +166,11 @@
     <div style="display: flex; justify-content: center;">
       <section style="width: 700px; margin-top: 50px;">
         <h1 style="text-align: center;">Classifying the latent space</h1>
-        <p>In the experiment above, prescribing means for each digit distribution caused the clusters to be very distinct. In a sense, ensuring distinct clusters is a classification task. I decided to see if this goal could be made more explicit by jointly training the decoder to classify digits.
+        <p>In the experiment above, prescribing means for each digit distribution caused the clusters to be very distinct. Making distinct digit clusters is effectively a classification task. I decided to see if this goal could be made more explicit by jointly training the decoder to classify digits.
         <p>
         <a href="https://colab.research.google.com/drive/1-jWyDoGDoiepaRSWiBMvl_Y_TP-rE_1N?usp=sharing">In this experiement</a>, the decoder outputs both a sample image as well as a 10-element vector for digit classification. Each iteration of the training loop, the loss is computed from adding the VAE loss terms with a weighted classification loss. I had to play around a bit with the weighting to have the desired affect.
         </p>
-        <p>Adding a classification loss causes the encoder to learn to distinguish between digits in order to separate their distributions in the latent space, because the decoder must rely entirely on the latent space to classify the digits. The effect are digit clusters with much cleaner boundaries than with just the VAE loss.</p>
+        <p>Adding a classification loss causes the encoder to learn to distinguish between digits in order to separate their distributions in the latent space, because the decoder must rely entirely on the latent space to classify the digits. The effect are digit clusters with much cleaner boundaries than with vanilla the VAE loss. However, another effect I've observed is that interpolation becomes somewhat less realistic, since there's unused chasms in the latent space between digits.</p>
       </section>
     </div>
     <div style="display: flex; justify-content: center; margin-top: 20px;">
