@@ -198,13 +198,22 @@
       </section>
     </div>
     <div style="display: flex; justify-content: center; margin-top: 20px;">
-      <div>
+      <div style="display: flex;">
         <img
           style="margin-right: 80px;"
           id="latent_space4"
           src="./latent_space_classifier.png"
         />
-        <canvas id="canvas4" width="260" height="260"></canvas>
+        <canvas
+          id="canvas4"
+          width="260"
+          height="260"
+          style="margin-right: 80px;"
+        ></canvas>
+        <div>
+          <h3 style="text-align: center;">Classifier output</h3>
+          <canvas id="canvas5" width="260" height="200"></canvas>
+        </div>
       </div>
     </div>
     <div style="display: flex; justify-content: center;">
@@ -239,6 +248,28 @@
               ctx.fillStyle = `rgb(${color}, ${color}, ${color})`;
               ctx.fillRect(winc * c, hinc * r, winc, hinc);
             }
+          }
+        }
+      }
+
+      class ClassCanvas {
+        constructor(id) {
+          const canvas = document.getElementById(id);
+          const ctx = canvas.getContext('2d');
+          const {width, height} = canvas;
+          const hinc = height / 10;
+          this.props = {ctx, width, height, hinc};
+        }
+
+        write(data) {
+          const {ctx, width, height, hinc} = this.props;
+          ctx.clearRect(0, 0, width, height);
+          ctx.strokeStyle = 'gray';
+          for (let r = 0; r < 10; r++) {
+            const p = Math.round(data[r] * 1000000) / 1000000;
+            ctx.fillText(r, 0, hinc * (r + 0.5));
+            ctx.fillRect(20, hinc * r, width * p, hinc);
+            ctx.strokeText(p, 20, hinc * (r + 0.5));
           }
         }
       }
@@ -363,8 +394,10 @@
         );
 
         const canvas = new DigitCanvas('canvas4');
+        const classCanvas = new ClassCanvas('canvas5');
         const data = await predict(vaeMnist, 0, 0);
         canvas.write(data);
+        classCanvas.write(data.slice(-10));
 
         const latentSpace = document.getElementById('latent_space4');
         latentSpace.onmousemove = async e => {
@@ -375,6 +408,7 @@
           ];
           const data = await predictClassifier(vaeMnist, x, y);
           canvas.write(data);
+          classCanvas.write(data.slice(-10));
         };
       }
 
